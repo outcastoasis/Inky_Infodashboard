@@ -8,12 +8,11 @@ import requests
 import locale
 import feedparser
 import qrcode
-import matplotlib.pyplot as plt
 import io
 from PIL import Image
 from inky.auto import auto
 
-locale.setlocale(locale.LC_TIME, "deu_deu")
+locale.setlocale(locale.LC_TIME, "de_CH.UTF-8")
 
 def draw_wrapped_text(draw, text, font, max_width, position, line_spacing=5, fill="black"):
     words = text.split()
@@ -78,65 +77,6 @@ def draw_calendar_entry(draw, entry, fonts, position, max_width=360, spacing=5):
 
     # Gesamthöhe zurückgeben (für y += ...)
     return y + len(lines) * (font_regular.size + spacing)
-
-def draw_temperature_chart(city, api_key, units, lang, target_img, position=(10, 360), max_height=110):
-    url = f"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units={units}&lang={lang}"
-    try:
-        res = requests.get(url)
-        data = res.json()
-        today = datetime.now(timezone.utc).date()
-
-        temps, times = [], []
-        for item in data.get("list", []):
-            dt = datetime.fromtimestamp(item["dt"], tz=timezone.utc)
-            if dt.date() == today:
-                temps.append(item["main"]["temp"])
-                times.append(dt.strftime("%H:%M"))
-
-        if not temps:
-            return
-
-        fig_height_inches = max_height / 100
-        fig, ax = plt.subplots(figsize=(5.8, fig_height_inches), dpi=100)
-
-        # Temperaturlinie
-        ax.plot(times, temps, marker="o", color="black", linewidth=2)
-
-        # Min-/Max-Linien einzeichnen
-        min_temp = min(temps)
-        max_temp = max(temps)
-
-        ax.axhline(y=min_temp, linestyle="--", linewidth=1, color="black")
-        ax.axhline(y=max_temp, linestyle="--", linewidth=1, color="black")
-
-        # Labels
-        ax.text(len(times)-0.5, min_temp + 0.2, f"Min: {min_temp:.1f}°", fontsize=14, color="black")
-        ax.text(len(times)-0.5, max_temp + 0.2, f"Max: {max_temp:.1f}°", fontsize=14, color="black")
-
-        # Stil für E-Ink
-        fig.patch.set_facecolor("white")
-        ax.set_facecolor("white")
-        ax.set_ylabel("°C", fontsize=10)
-        ax.set_xlabel("")
-        ax.set_title("Temperaturverlauf heute", fontsize=11, pad=6)
-        ax.tick_params(axis='x', labelrotation=45, labelsize=9)
-        ax.tick_params(axis='y', labelsize=9)
-
-        # Achsenrahmen entfernen
-        for spine in ax.spines.values():
-            spine.set_visible(False)
-
-        buf = io.BytesIO()
-        plt.savefig(buf, format="png", bbox_inches="tight", pad_inches=0.1)
-        buf.seek(0)
-        plt.close()
-
-        chart = Image.open(buf).convert("RGB")
-        chart = chart.resize((360, max_height))
-        target_img.paste(chart, position)
-
-    except Exception as e:
-        print(f"Fehler beim Zeichnen des Temperaturverlaufs: {e}")
 
 BLACK = "black"
 BLUE = (0, 0, 255)
