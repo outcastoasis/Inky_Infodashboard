@@ -70,6 +70,5 @@ crontab -l
 
 ## Vorschau
 
-```markdown
 ![Beispielanzeige](https://raw.githubusercontent.com/outcastoasis/Inky_Infodashboard/main/assets/dashboard_simulation_git.png)
 
