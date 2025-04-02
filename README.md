@@ -70,5 +70,5 @@ crontab -l
 
 ## Vorschau
 
-![Beispielanzeige](https://raw.githubusercontent.com/outcastoasis/Inky_Infodashboard/main/assets/dashboard_simulation_git.png)
+![Beispielanzeige](assets/dashboard_simulation_git.png)
 
