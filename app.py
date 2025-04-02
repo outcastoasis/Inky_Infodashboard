@@ -11,6 +11,7 @@ import qrcode
 import matplotlib.pyplot as plt
 import io
 from PIL import Image
+from inky.auto import auto
 
 locale.setlocale(locale.LC_TIME, "deu_deu")
 
@@ -249,4 +250,11 @@ y = resolution[1] - 20
 draw.text((x, y), now_str, font=font_small, fill="black")
 
 img.save("dashboard_simulation.png")
-img.show()
+
+try:
+    inky = auto(ask_user=True, verbose=True)
+    resized = img.resize(inky.resolution)
+    inky.set_image(resized)
+    inky.show()
+except Exception as e:
+    print(f"Fehler beim Anzeigen auf dem Inky Display: {e}")
