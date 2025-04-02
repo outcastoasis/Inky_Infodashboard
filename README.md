@@ -49,6 +49,3 @@ Die News werden aus diesem RSS-Feed geladen:
 
 > Beispielbild folgt
 
----
-
-Wenn du das Projekt später auf den Raspberry Pi bringst, kannst du die Ausgabe direkt auf dem E-Ink-Display anzeigen.

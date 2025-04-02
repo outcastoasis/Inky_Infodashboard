@@ -1,2 +1,4 @@
 .env
 /pi-dashboard-master
+credentials.json
+token.json
