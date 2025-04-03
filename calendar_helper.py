@@ -21,7 +21,17 @@ def get_today_events_grouped(calendar_dict):
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
+            try:
+                # Versuche normalen lokalen Server-Flow (für Desktop)
+                creds = flow.run_local_server(port=0)
+            except:
+                # Kein Browser verfügbar – nutze manuellen Codeflow
+                auth_url, _ = flow.authorization_url(prompt='consent')
+                print("\nÖffne diesen Link auf einem anderen Gerät:")
+                print(auth_url)
+                code = input("Gib den Code ein, den du nach der Anmeldung erhalten hast: ")
+                flow.fetch_token(code=code)
+                creds = flow.credentials
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
