@@ -36,40 +36,58 @@ Inky_Infodashboard/
 └── README.md               # Diese Datei
 ```
 
+---
+
 ## 🚀 Installation
 
+```bash
 git clone https://github.com/dein-benutzer/Inky_Infodashboard.git
 cd Inky_Infodashboard
 chmod +x setup.sh
 ./setup.sh
+```
+
+---
 
 ## 🔁 Automatische Anzeige
 
-Das Skript setup.sh richtet einen Cronjob ein, der app.py automatisch alle 15 Minuten aufruft und das E-Ink Display aktualisiert.
+Das Skript `setup.sh` richtet einen **Cronjob** ein, der `app.py` automatisch alle 15 Minuten aufruft und das E-Ink Display aktualisiert.
 
-## Wetter-API
+---
 
-Du benötigst einen kostenlosen API-Key von [https://openweathermap.org](https://openweathermap.org)  
-→ In separater `.env` eintragen.
-.env muss folgendes enthalten:
-→ API_KEY=dein_openweathermap_api_key
+## 🌐 APIs & Zugang
 
-## Kalender API
+- `.env` muss folgendes enthalten:
 
-Für Google Kalender muss credentials.json vorhanden sein.
-Beim ersten Start wird automatisch token.json erstellt.
+```env
+API_KEY=dein_openweathermap_api_key
+```
 
-## RSS-Feed
+- Für Google Kalender muss `credentials.json` vorhanden sein.  
+  Beim ersten Start wird automatisch `token.json` erstellt.
 
-Die News werden aus diesem RSS-Feed geladen:  
-[20min Zentralschweiz](https://partner-feeds.beta.20min.ch/rss/20minuten/zentralschweiz)
+---
+
+## 🖼️ Beispielanzeige
+
+![Beispiel](assets/dashboard_simulation_git.png)
+
+*Lege dein Bild z. B. in einen `assets/`-Ordner und referenziere es so.*
+
+---
+
+## 🧪 Manuelles Testen
+
+```bash
+python3 app.py
+```
+
+---
 
 ## 📅 Cronjob prüfen
 
+```bash
 crontab -l
+```
 
-## Vorschau
-
-```markdown
-![Beispielanzeige](assets/dashboard_simulation_git.png)
-
+---

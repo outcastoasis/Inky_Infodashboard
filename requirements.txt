@@ -18,7 +18,6 @@ googleapis-common-protos==1.69.2
 httplib2==0.22.0
 idna==3.4
 kiwisolver==1.4.5
-matplotlib==3.3.4
 numpy==1.24.4
 oauthlib==3.2.2
 packaging==24.0
